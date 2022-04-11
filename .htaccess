@@ -1,0 +1,16 @@
+# links follow
+Options +FollowSymlinks 
+# rewrite Apache activate
+RewriteEngine On
+
+
+# /bienvenue -> /controllers/welcome-controller.php
+RewriteRule ^bienvenue$ /controllers/page-controller-welcome.php [L]
+
+# /accueil -> /controllers/home-controller.php
+RewriteRule ^accueil$ /controllers/page-controller-home.php [L]
+
+
+
+
+

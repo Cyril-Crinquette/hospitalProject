@@ -1,0 +1,73 @@
+/* ----------------RESPONSIVE MOBILE-------------- */
+
+.main>.row {
+    height: 100%;
+}
+
+.contentMiddle {
+    height: 100%;
+}
+
+.firstColumn {
+    background-color: blueviolet;
+}
+
+.secondColumn {
+    background-color: chartreuse;
+}
+
+.thirdColumn {
+    background-color: cornflowerblue;
+}
+
+.imgDiv {
+    display: flex;
+    justify-content: center;
+}
+
+.imgDiv>img {
+    width: 90%;
+}
+
+@media screen and (max-width: 768px){
+    #contact{
+        font-size: larger;
+        text-align: center;
+        margin:1.5em;
+    } 
+
+    
+}
+
+/* --------------------------------------------------- */
+
+/* -------------------RESPONSIVE PC------------------- */
+
+@media screen and (min-width: 768px) {
+
+    .firstColumn {
+        background-color: blueviolet;
+    }
+
+    .secondColumn {
+        background-color: chartreuse;
+    }
+
+    .thirdColumn {
+        background-color: cornflowerblue;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    #contact{
+        margin-left: 3em; 
+    }
+
+    footer{
+        display: flex;
+        justify-content: flex-end;
+    }
+}
+
+/* ---------------------------------------------------- */

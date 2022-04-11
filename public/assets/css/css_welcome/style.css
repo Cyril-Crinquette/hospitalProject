@@ -1,0 +1,30 @@
+/* ---------------RESPONSIVE MOBILE--------------- */
+
+:root {
+    font-size: 16px;
+}
+
+body {
+    background-color: rgb(43, 43, 43);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+div>h1 {
+    color: white;
+    margin: 1.2em 2em;
+}
+/* ----------------------------------------------------- */
+
+/*--------------------- RESPONSIVE PC------------------- */
+
+@media screen and (min-width: 768px) {
+    body {
+        background-image: url("/public/assets/img/welcome.png");
+        background-size: 100% 100vh;
+        background-repeat: no-repeat;
+    }
+}

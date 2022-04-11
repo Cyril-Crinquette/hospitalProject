@@ -1,0 +1,137 @@
+/* --------------RESPONSIVE MOBILE---------------- */
+
+.smallLogo {
+    height: 60px;
+    width: 60px;
+}   
+
+a{
+    text-decoration:none;
+    color: inherit;
+    transition: 50ms ease;
+}
+
+a:hover{
+    color: white;
+    transform: scale(1.05);
+}
+
+/*----------------------- NAVBAR ----------------- */
+.mobileNav{
+    --bs-bg-opacity: 1;
+    background-color: rgb(38, 112, 87);
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.listNavMobile{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.listNavMobile>div{
+    margin: 5px 0;
+    width: 95%;
+    background-color: rgb(79, 138, 118);
+    border: 3px solid rgb(12, 71, 51);
+    text-align: center;
+    color: white;
+}
+
+.navbarFlexible{
+    display: flex;
+    justify-content:space-around;
+    flex-wrap:nowrap;
+}
+
+.logoAndNav{
+    display: flex;
+}
+/* ----------------------------------------------------- */
+/* ----------------------------------------------------- */
+
+
+/* ---------------------RESPONSIVE PC------------------- */
+
+@media screen and (min-width: 768px) {
+    body {
+        background-color: aquamarine;
+    }
+
+    #mobileTitle{
+        display: none;
+    }
+    
+    .mobileNav{
+        display: none;
+    }
+
+    .row {
+        height: 100%;
+    }
+
+    .navbarLaptop {
+        height: 100px;
+    }
+
+    .logo {
+        background-color: blue;
+    }
+
+    .logo>img{
+        height:100%;
+    }
+
+    .titleHeader {
+        background-color: brown;
+
+    }
+
+    .loginHeader {
+        background-color: coral;
+    }
+
+    .loginHeader>p:hover{
+        cursor: pointer;
+    }
+
+    .categoryList{
+        list-style: none;
+    }
+
+    /*--------------------- Modale--------------------- */
+
+    .modal {
+        display: none;
+        /* Hidden by default */
+        position: fixed;
+        /* Stay in place */
+        z-index: 3;
+        /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%;
+        /* Full width */
+        height: 100%;
+        /* Full height */
+        overflow: auto;
+        /* Enable scroll if needed */
+        background-color: rgb(0, 0, 0);
+        /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.4);
+        /* Black w/ opacity */
+        padding-top: 60px;
+    }
+    
+    /* Modal Content/Box */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 5% auto 15% auto;
+        /* 5% from the top, 15% from the bottom and centered */
+        border: 1px solid #888;
+        width: 80%;
+        /* Could be more or less, depending on screen size */
+    }
+    /* ---------------------------------------------------- */
+}
