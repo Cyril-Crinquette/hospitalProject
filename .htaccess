@@ -4,12 +4,14 @@ Options +FollowSymlinks
 RewriteEngine On
 
 
-# /accueil -> /controllers/home-controller.php
+# /accueil -> /controllers/page-controller-home.php
  RewriteRule ^accueil$ /controllers/page-controller-home.php [L]
 
- # /inscription -> /controllers/ajout-patient-controller.php
+# /inscription -> /controllers/page-controller-add-patient.php
  RewriteRule ^inscription$ /controllers/page-controller-add-patient.php [L]
 
+ # /liste-de-patients -> /controllers/page-controller-patient-list.php
+ RewriteRule ^liste-de-patients$ /controllers/page-controller-patient-list.php [L]
 
 
 

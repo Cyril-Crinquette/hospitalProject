@@ -1,6 +1,6 @@
 <?php
 
-require_once(dirname(__FILE__).'/../config/hospital-connection.php');
+require_once(dirname(__FILE__).'/../utils/hospital-connection.php');
 
 
 class Patient {
@@ -22,9 +22,8 @@ class Patient {
         $this->setBirthdate($birthdate);
         $this->setPhone($phone);
         $this->setMail($mail);
-        $this->_pdo=dbConnect();
+        $this->_pdo=Database::dbConnect();
     }
-
     //----------------------------------------------------------------------------------------
 
     // GETTER -------------------------------------------------------
@@ -92,58 +91,70 @@ class Patient {
 
     // METHODE ADD POUR L'AJOUT DANS LA BASE DE DONNEES------------------------------------------
 
-    public function add(){
+    public function add():bool{
         try{
-            $sth = $this->_pdo->prepare(
-                "INSERT INTO patients (lastname, firstname, birthdate, phone, mail)
-                VALUES (:lastname,:firstname,:birthdate,:phone,:mail)
-                "       
-            );
+            $sql= "
+            INSERT INTO patients (lastname, firstname, birthdate, phone, mail)
+            VALUES (:lastname,:firstname,:birthdate,:phone,:mail)
+            "  ;
+            $sth = $this->_pdo->prepare($sql);      
             
             $sth-> bindValue(':lastname', $this->getLastname(), PDO::PARAM_STR);
             $sth-> bindValue(':firstname', $this->getFirstname(), PDO::PARAM_STR);
             $sth-> bindValue(':birthdate', $this->getBirthdate(), PDO::PARAM_STR);
             $sth-> bindValue(':phone', $this->getPhone(), PDO::PARAM_STR);
             $sth-> bindValue(':mail', $this->getMail(), PDO::PARAM_STR);
-
-            $sth->execute();
+            
+            return $sth->execute();
+            
         } catch(PDOException $exception){
-            $error = $exception->getMessage();
-            echo $error;
+            return false;
         }
     }
     // ----------------------------------------------------------------------------------------
 
     // METHODE VERIFY POUR LA VERIFICATION DU MAIL DANS LA BASE DE DONNEES----------------------------
 
-    public function verify(){
+    public static function isExist(string $mail):bool{
         try {
-            $sth = $this->_pdo->prepare(
-                "SELECT mail
-                FROM patients
-                "
-            );
-            $patientsMails = $sth->fetchAll();
-        } catch(PDOException $exception){
-            $error = $exception->getMessage();
-            echo $error;
-        }
-        foreach ($patientsMails as $value) {
-            if ($value == $this->_mail) {
+            $sql =
+            "SELECT mail
+            FROM patients
+            WHERE mail = :mail
+            ";
+            $sth = Database::dbConnect()->prepare($sql);
+            $sth-> bindValue(':mail', $mail, PDO::PARAM_STR);
+            $sth-> execute();
+
+            if(empty($sth->fetchAll())){
                 return false;
             } else {
                 return true;
             }
-            
+                
+        } catch(PDOException $exception){
+            return false;
         }
     }
-
-
-
-
-
     // ----------------------------------------------------------------------------------------
 
+    // METHODE READ POUR AFFICHER LES PATIENTS DE LA BASE DE DONNEES----------------------------
+
+    public function read():array{
+        try{
+            $sql= "
+            SELECT * 
+            FROM patients 
+            "  ;
+            $sth = $this->_pdo->query($sql);      
+            
+            $list = $sth->fetchAll();
+            return $list;
+        } catch(PDOException $exception){
+            return false;
+        }
+    }
+    // ----------------------------------------------------------------------------------------
 }
 
 // Exemple

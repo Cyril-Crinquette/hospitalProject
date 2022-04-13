@@ -64,5 +64,5 @@
             </div>
 
             <input type="submit" value="Enregistrer le patient" class="btn btn-primary mt-3" id="validForm">
-            <h4 class="text-center"><?=$addMsg?></h4>
+            <h4 class="text-center"><?=$addMsg??""?></h4>
     </form>

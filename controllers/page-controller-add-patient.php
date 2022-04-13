@@ -1,11 +1,10 @@
 <!------------------------- Controller de l'inscription, appel des vues de l'inscription-------------------------- -->
 
-
-
 <?php
 
-require_once(dirname(__FILE__).'/../config/const.php');
+require_once(dirname(__FILE__).'/../utils/hospital-connection.php');
 require_once(dirname(__FILE__).'/../models/Patient.php');
+require_once(dirname(__FILE__).'/../utils/regex.php');
 
 
 // Traitement des données du formulaire
@@ -90,26 +89,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (!$testmail) {
             $error["mail"] = "L'adresse mail n'est pas au bon format!!";
         }
+        if (Patient::isExist($mail)) {
+            $error["mail"] = "L'adresse mail existe déjà";
+
+        }
     } else {
         $error["mail"] = "L'adresse mail est obligatoire!!";
     }
 
     if (empty($error)) {
         $patient = new Patient($lastname, $firstname, $birthdate, $phone, $mail);
-        $verificatedPatient = $patient->verify();
-        if ($verificatedPatient == true) {
-            $patient->add();
+        
+        $addedPatient = $patient->add();
+        if ($addedPatient === true) {
+            
             $addMsg= 'Le nouveau patient a bien été créé dans la base de données.';
         } else {
-            $addMsg= 'Le patient existe déjà dans la base de données et n\'a donc pas été ajouté';
-        }
-        
-    } else {
-        $addMsg= 'Le nouveau patient ne peut pas encore être créé dans la base de données, le formulaire contient des erreurs.';
-    }
-    
-    
-
+            $addMsg= 'Le nouveau patient ne peut pas encore être ajouté dans la base de données';
+        }        
+    } 
 
 }
 
