@@ -1,9 +1,10 @@
 <?php
 
-require_once(dirname(__FILE__).'/../utils/hospital-connection.php');
+require_once(dirname(__FILE__) . '/../utils/hospital-connection.php');
 
 
-class Patient {
+class Patient
+{
     //déclaration d’attributs spécifiques à la classe 'Patient' ---------------------------
     private string $_id;
     private string $_lastname;
@@ -16,19 +17,21 @@ class Patient {
 
     //MAGIC METHOD CONSTRUCT----------------------------------------------------------------
 
-    public function __construct(string $lastname, string $firstname, string $birthdate, string $phone, string $mail){
+    public function __construct(string $lastname = '', string $firstname = '', string $birthdate = '', string $phone = '', string $mail = '')
+    {
         $this->setLastname($lastname);
         $this->setFirstname($firstname);
         $this->setBirthdate($birthdate);
         $this->setPhone($phone);
         $this->setMail($mail);
-        $this->_pdo=Database::dbConnect();
+        $this->_pdo = Database::dbConnect();
     }
     //----------------------------------------------------------------------------------------
 
     // GETTER -------------------------------------------------------
 
-    public function getId():int{
+    public function getId(): int
+    {
         return $this->_id;
     }
 
@@ -36,30 +39,36 @@ class Patient {
      * GETTER pour l'attribut '_lastname' de 'Patient'
      * @return string
      */
-    public function getLastname():string{
+    public function getLastname(): string
+    {
         return $this->_lastname;
     }
 
-    public function getFirstname():string{
+    public function getFirstname(): string
+    {
         return $this->_firstname;
     }
 
-    public function getBirthdate():string{
+    public function getBirthdate(): string
+    {
         return $this->_birthdate;
     }
 
-    public function getPhone():string{
+    public function getPhone(): string
+    {
         return $this->_phone;
     }
 
-    public function getMail():string{
+    public function getMail(): string
+    {
         return $this->_mail;
     }
     // ----------------------------------------------------------------
 
     // SETTER ---------------------------------------------------------
 
-    public function setId(int $id):void{
+    public function setId(int $id): void
+    {
         $this->_id = $id;
     }
 
@@ -68,46 +77,51 @@ class Patient {
      * @param string $lastname
      * @return void
      */
-    public function setLastname(string $lastname):void{
+    public function setLastname(string $lastname): void
+    {
         $this->_lastname = $lastname;
     }
 
-    public function setFirstname(string $firstname):void{
+    public function setFirstname(string $firstname): void
+    {
         $this->_firstname = $firstname;
     }
 
-    public function setBirthdate(string $birthdate):void{
+    public function setBirthdate(string $birthdate): void
+    {
         $this->_birthdate = $birthdate;
     }
 
-    public function setPhone(string $phone):void{
+    public function setPhone(string $phone): void
+    {
         $this->_phone = $phone;
     }
 
-    public function setMail(string $mail):void{
+    public function setMail(string $mail): void
+    {
         $this->_mail = $mail;
     }
     // ----------------------------------------------------------------------
 
     // METHODE ADD POUR L'AJOUT DANS LA BASE DE DONNEES------------------------------------------
 
-    public function add():bool{
-        try{
-            $sql= "
+    public function add(): bool
+    {
+        try {
+            $sql = "
             INSERT INTO patients (lastname, firstname, birthdate, phone, mail)
             VALUES (:lastname,:firstname,:birthdate,:phone,:mail)
-            "  ;
-            $sth = $this->_pdo->prepare($sql);      
-            
-            $sth-> bindValue(':lastname', $this->getLastname(), PDO::PARAM_STR);
-            $sth-> bindValue(':firstname', $this->getFirstname(), PDO::PARAM_STR);
-            $sth-> bindValue(':birthdate', $this->getBirthdate(), PDO::PARAM_STR);
-            $sth-> bindValue(':phone', $this->getPhone(), PDO::PARAM_STR);
-            $sth-> bindValue(':mail', $this->getMail(), PDO::PARAM_STR);
-            
+            ";
+            $sth = $this->_pdo->prepare($sql);
+
+            $sth->bindValue(':lastname', $this->getLastname(), PDO::PARAM_STR);
+            $sth->bindValue(':firstname', $this->getFirstname(), PDO::PARAM_STR);
+            $sth->bindValue(':birthdate', $this->getBirthdate(), PDO::PARAM_STR);
+            $sth->bindValue(':phone', $this->getPhone(), PDO::PARAM_STR);
+            $sth->bindValue(':mail', $this->getMail(), PDO::PARAM_STR);
+
             return $sth->execute();
-            
-        } catch(PDOException $exception){
+        } catch (PDOException $exception) {
             return false;
         }
     }
@@ -115,47 +129,113 @@ class Patient {
 
     // METHODE VERIFY POUR LA VERIFICATION DU MAIL DANS LA BASE DE DONNEES----------------------------
 
-    public static function isExist(string $mail):bool{
+    public static function isExist(string $mail): bool
+    {
         try {
             $sql =
-            "SELECT mail
+                "SELECT mail
             FROM patients
             WHERE mail = :mail
             ";
             $sth = Database::dbConnect()->prepare($sql);
-            $sth-> bindValue(':mail', $mail, PDO::PARAM_STR);
-            $sth-> execute();
+            $sth->bindValue(':mail', $mail, PDO::PARAM_STR);
+            $sth->execute();
 
-            if(empty($sth->fetchAll())){
+            if (empty($sth->fetchAll())) {
                 return false;
             } else {
                 return true;
             }
-                
-        } catch(PDOException $exception){
+        } catch (PDOException $exception) {
             return false;
         }
     }
     // ----------------------------------------------------------------------------------------
 
-    // METHODE READ POUR AFFICHER LES PATIENTS DE LA BASE DE DONNEES----------------------------
+    // METHODE GETALL POUR AFFICHER LES PATIENTS DE LA BASE DE DONNEES----------------------------
 
-    public function read():array{
-        try{
-            $sql= "
+    public static function getAll(): array
+    {
+        $sql = '
             SELECT * 
-            FROM patients 
-            "  ;
-            $sth = $this->_pdo->query($sql);      
-            
+            FROM `patients` ;
+            ';
+        try {
+            $sth = Database::dbConnect()->query($sql);
+            if (!$sth) {
+                throw new PDOException();
+            }
             $list = $sth->fetchAll();
             return $list;
-        } catch(PDOException $exception){
-            return false;
+        } catch (PDOException $exception) {
+            $emptyArray = [];
+            return $emptyArray;
+        }
+    }
+    // ----------------------------------------------------------------------------------------
+
+    // METHODE GETONE POUR AFFICHER LE PATIENT DE LA BASE DE DONNEES----------------------------
+
+    public static function getOne(int $id): object
+    {
+        $sql = '
+            SELECT * 
+            FROM `patients` 
+            WHERE `patients`.`id` =:id;
+            ';
+        try {
+            $sth = Database::dbConnect()->prepare($sql);
+            $sth->bindValue(':id', $id, PDO::PARAM_INT);
+            $verif = $sth->execute();
+            if (!$verif) {
+                throw new PDOException();
+            } else {
+                $patient = $sth->fetch();
+                if (!$patient) {
+                    throw new PDOException('Patient non trouvé');
+                }
+                return $patient ;
+            }
+        } catch (PDOException $e) {
+            return $e;
+        }
+    }
+    // ----------------------------------------------------------------------------------------
+
+    // METHODE MODIFY POUR LA MODIFICATION D'UN PATIENT DANS LA BASE DE DONNEES------------------------------------------
+
+    public function modify(int $id) {        
+            $sql =
+            'UPDATE `patients` 
+            SET 
+            `lastname` = :lastname,
+            `firstname` = :firstname,
+            `birthdate` = :birthdate,
+            `phone` = :phone,
+            `mail` = :mail
+            WHERE `id` = :id;
+            ';
+        try {
+            $sth = $this->_pdo->prepare($sql);
+            $sth -> bindValue(':id', $id, PDO::PARAM_INT); // PDO::PARAM_STR valeur par default prèciser seulement quand c'est autre chose
+            $sth -> bindValue(':lastname', $this -> getLastname(), PDO::PARAM_STR); // PDO::PARAM_STR valeur par default prèciser seulement quand c'est autre chose
+            $sth -> bindValue(':firstname', $this -> getFirstname(), PDO::PARAM_STR);
+            $sth -> bindValue(':birthdate', $this -> getBirthdate(), PDO::PARAM_STR);
+            $sth -> bindValue(':phone', $this -> getPhone(), PDO::PARAM_STR);
+            $sth -> bindValue(':mail', $this -> getMail(), PDO::PARAM_STR);
+            $verif = $sth -> execute(); // retour un objet pdo statment !
+            if (!$verif) {
+                throw new PDOException('La requête n\'a pas été exécuté');
+            } else {
+                return $verif;
+            }
+        } catch (PDOException $e) {
+            return $e;
         }
     }
     // ----------------------------------------------------------------------------------------
 }
+
 
 // Exemple
 // $Geoffrey = new Patient('juju', 'héhé', 'Necrolight', 'yio', 'Ancien Shield');

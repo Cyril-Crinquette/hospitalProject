@@ -1,6 +1,6 @@
-<main class="text-center">
-    <p >Un contenu jamais vu ailleurs </p>
-    <a href="/inscription"> <p>Inscrire un nouveau patient</p></a>
-    <a href="/liste-de-patients"> <p>Accéder à la liste des patients</p></a>
+<main class="text-center"> <br>
+    <h4>Un contenu jamais vu ailleurs </h4> <br> <br>
+    <a href="/inscription"> <h5>Inscrire un nouveau patient</h5></a> <br>
+    <a href="/liste-de-patients"> <h5>Accéder à la liste des patients</h5></a>
 
 </main>

@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     //===================== Prénom : Nettoyage et validation =======================
-    $firstname = trim(filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_FLAG_NO_ENCODE_QUOTES));
+    $firstname = trim(filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_SPECIAL_CHARS, FILTER_FLAG_NO_ENCODE_QUOTES));
     // On vérifie que ce n'est pas vide
     if (!empty($firstname)) {
         $testRegex = filter_var($firstname, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => '/' . REG_EXP_NO_NUMBER . '/')));
@@ -89,38 +89,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (!$testmail) {
             $error["mail"] = "L'adresse mail n'est pas au bon format!!";
         }
-        if (Patient::isExist($mail)) {
-            $error["mail"] = "L'adresse mail existe déjà";
-
-        }
     } else {
         $error["mail"] = "L'adresse mail est obligatoire!!";
     }
+}
 
-    if (empty($error)) {
-        $patient = new Patient($lastname, $firstname, $birthdate, $phone, $mail);
-        
-        $addedPatient = $patient->add();
-        if ($addedPatient === true) {
-            
-            $addMsg= 'Le nouveau patient a bien été créé dans la base de données.';
-        } else {
-            $addMsg= 'Le nouveau patient ne peut pas encore être ajouté dans la base de données';
-        }        
-    } 
+if (!empty($_GET)) {
+    $id = trim(filter_input(INPUT_GET,'id',FILTER_SANITIZE_SPECIAL_CHARS));
+    $one = new Patient();
+    $onePatient = $one -> getOne($id);
 }
 
 
-// Appel des vues, on laisse l'utilisateur sur la page d'inscription si le formulaire est incomplet ou contient des erreurs
+include(dirname(__FILE__).'/../views/templates/header.php' );
 
-include(dirname(__FILE__).'/../views/templates/header.php');
-
-if ($_SERVER["REQUEST_METHOD"] != "POST" || !empty($error)) {
-    
-    include(dirname(__FILE__) . '/../views/user/add-patient.php');
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && empty($error)) {
+    $id = intval(filter_input(INPUT_POST,'id',FILTER_SANITIZE_SPECIAL_CHARS));
+    $modify = new Patient($lastname, $firstname,
+    $birthdate,$phone,$mail);
+    $modifyPatient = $modify -> modify($id);
+    var_dump($id);
+    if ($modifyPatient instanceof PDOException) {
+        $errorMsg = $modifyPatient -> getMessage();
+    }
+    header('location:/profil-patient?id='.$id);
+    // include(dirname(__FILE__) . '/../views/user/patient-modify.php');
 } else {
-    
-    include(dirname(__FILE__) . '/../views/user/valid-inscription.php');
+    include(dirname(__FILE__).'/../views/user/modify.php');
 }
 
-include(dirname(__FILE__).'/../views/templates/footer.php');
+include(dirname(__FILE__).'/../views/templates/footer.php'); //dirname(__FILE__).'/ ' l'emplacement actuel, chemin absolue !
