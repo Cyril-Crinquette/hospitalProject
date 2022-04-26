@@ -234,8 +234,43 @@ class Patient
         }
     }
     // ----------------------------------------------------------------------------------------
+
+    // METHODE ALLINFOS POUR L'AFFICHAGE D'UN PATIENT AVEC TOUS SES RENDEZ-VOUS------------------------------------------
+
+    public static function allInfos($id){
+        try {
+            $sth = Database::dbconnect() -> prepare(
+            "SELECT `patients`.`id`, `appointments`.`idPatients`,`appointments`.`id`, `lastname`, `firstname`, `birthdate`, `phone`, `mail`, `dateHour` 
+            FROM `patients` 
+            JOIN `appointments` 
+            ON `patients`.`id` = `appointments`.`idPatients`
+            WHERE `patients`.`id` = :id");
+            $sth -> bindValue(':id', $id, PDO::PARAM_INT);
+            $verif = $sth -> execute();
+            if (!$verif) {
+                throw new PDOException('La requête n\'a pas été exécutée');
+            } else {
+                $all = $sth -> fetchAll();
+                if (!$all) {
+                    throw new PDOException('Informations introuvables');
+                }
+            }
+        } catch (PDOException $e) {
+            return $e;
+        }
+        return $all; //retourne un objet et fetchAll un tableau !
+    }
+    // ----------------------------------------------------------------------------------------
+
+    // METHODE DELETEALL POUR ------------------------------------------
+
+    public static function delete($id){
+        $sth = Database::dbconnect() -> prepare(
+        "DELETE FROM `patients`
+        WHERE `patients`.`id` = :id");
+        $sth -> bindValue(':id', $id, PDO::PARAM_INT);
+        return $sth -> execute();
+    }
+    // ----------------------------------------------------------------------------------------
+
 }
-
-
-// Exemple
-// $Geoffrey = new Patient('juju', 'héhé', 'Necrolight', 'yio', 'Ancien Shield');

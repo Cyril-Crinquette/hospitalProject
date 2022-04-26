@@ -1,4 +1,3 @@
-
 <table class="table">
     <thead>
         <tr>
@@ -19,6 +18,7 @@
             <td scope="col"><?=$patient->phone;?></td>
             <td scope="col"><?=$patient->mail;?></td>
             <td scope="col"><a href="/profil-patient?id=<?=$patient->id?>"> Profil</a></td>
+            <td scope="col"><a href="/liste-de-patients?id=<?=$patient->id?>">Supprimer &rarr;</a>
         </tr>
         <?php } ?>
         </tr>
@@ -26,3 +26,4 @@
 </table>
 
 <a href="/inscription"> <h5>Inscrire un nouveau patient</h5></a> <br>
+

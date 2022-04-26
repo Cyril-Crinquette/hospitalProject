@@ -1,28 +1,35 @@
 # links follow
-Options +FollowSymlinks 
+Options +FollowSymlinks
 # rewrite Apache activate
 RewriteEngine On
 
 
 # /accueil -> /controllers/page-controller-home.php
- RewriteRule ^accueil$ /controllers/page-controller-home.php [L]
+RewriteRule ^accueil$ /controllers/page-controller-home.php [L]
 
 # /inscription -> /controllers/page-controller-add-patient.php
- RewriteRule ^inscription$ /controllers/page-controller-add-patient.php [L]
+RewriteRule ^inscription$ /controllers/page-controller-add-patient.php [L]
 
- # /liste-de-patients -> /controllers/page-controller-patients-list.php
- RewriteRule ^liste-de-patients$ /controllers/page-controller-patients-list.php [L]
+# /liste-de-patients -> /controllers/page-controller-patients-list.php
+RewriteRule ^liste-de-patients$ /controllers/page-controller-patients-list.php [L]
 
-  # /erreur -> /controllers/page-controller-error.php
- RewriteRule ^erreur$ /controllers/page-controller-error.php [L]
+# /erreur -> /controllers/page-controller-error.php
+RewriteRule ^erreur$ /controllers/page-controller-error.php [L]
 
-  # /profil-patient -> /controllers/page-controller-patient-profile.php
- RewriteRule ^profil-patient$ /controllers/page-controller-patient-profile.php [L]
+# /profil-patient -> /controllers/page-controller-patient-profile.php
+RewriteRule ^profil-patient$ /controllers/page-controller-patient-profile.php [L]
 
- # /modification -> /controllers/page-controller-modify.php
- RewriteRule ^modification$ /controllers/page-controller-modify.php [L]
+# /modification -> /controllers/page-controller-modify.php
+RewriteRule ^modification$ /controllers/page-controller-modify.php [L]
 
+# /prise-de-rendez-vous -> /controllers/page-controller-add-appointment.php
+RewriteRule ^prise-de-rendez-vous$ /controllers/page-controller-add-appointment.php [L]
 
+# /liste-de-rendez-vous -> /controllers/page-controller-appointments-list.php
+RewriteRule ^liste-de-rendez-vous$ /controllers/page-controller-appointments-list.php [L]
 
+# /info-de-rendez-vous -> /controllers/page-controller-appointment.php
+RewriteRule ^info-de-rendez-vous$ /controllers/page-controller-appointment.php [L]
 
-
+# /modification-de-rendez-vous -> /controllers/page-controller-modify-appointment.php
+RewriteRule ^modification-de-rendez-vous$ /controllers/page-controller-modify-appointment.php [L]

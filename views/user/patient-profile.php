@@ -1,4 +1,6 @@
-    <p><?$error??''?></p>
+    <p>
+        <?$error??''?>
+    </p>
     <?php if (empty($error)) { ?>
     <div class="card-deck ">
         <div class="card">
@@ -20,6 +22,17 @@
                 <small class="text-muted"><?=$patient->id;?></small>
             </div>
         </div>
+        <p class="statusName">
+            Rendez-vous: <br>
+            <?php
+                    foreach ($allInfo as $value) { ?>
+            <strong><?=$value -> dateHour ?? 'Aucun Rendez-vous'?></strong> <br>
+            <?php
+                    }
+                    ?>
+        </p>
     </div>
-    <a href="/modification?id=<?=$patient->id;?>"><button>Modifier les informations du patient</button></a>
+    <a href="/modification?id=<?=$patient->id;?>"><button>Modifier les informations du patient</button></a> <br>
+    <a href="/liste-de-patients"> <h5 class="text-center">Retour à la liste des patients</h5></a> <br>
+
     <?php } ?>

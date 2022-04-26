@@ -3,6 +3,7 @@
 require_once(dirname(__FILE__).'/../models/Patient.php');
 
     $id= intval(filter_input(INPUT_GET,'id',FILTER_SANITIZE_NUMBER_INT));
+    $allInfo = Patient::allInfos($id);
     $patient = Patient::getOne($id);
     if ($patient instanceof PDOException) {
         $error=$patient->getMessage();
