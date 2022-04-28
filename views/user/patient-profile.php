@@ -1,6 +1,8 @@
     <p>
         <?$error??''?>
     </p>
+    <?=SessionFlash::display('message')?>;
+
     <?php if (empty($error)) { ?>
     <div class="card-deck ">
         <div class="card">
@@ -23,16 +25,20 @@
             </div>
         </div>
         <p class="statusName">
-            Rendez-vous: <br>
+            Rendez-vous du patient: <br>
             <?php
-                    foreach ($allInfo as $value) { ?>
-            <strong><?=$value -> dateHour ?? 'Aucun Rendez-vous'?></strong> <br>
-            <?php
-                    }
-                    ?>
+                if (!empty($allInfo)) {
+                    foreach ($allInfo as $value) {
+                        echo '<p>'.$value->dateHour.'</p>'
+                        ?> <br>
+                        <a class="linkProfil" href="/suppression?id=<?=$value->appId?>">Supprimer le rendez-vous &rarr;</a> <br><br><br><br>
+                    <?php }
+                } else {
+                    echo '<p> Aucun rendez-vous n\'est pris pour ce patient</p>';
+                }
+            }
+            ?>
         </p>
     </div>
     <a href="/modification?id=<?=$patient->id;?>"><button>Modifier les informations du patient</button></a> <br>
     <a href="/liste-de-patients"> <h5 class="text-center">Retour à la liste des patients</h5></a> <br>
-
-    <?php } ?>

@@ -115,13 +115,9 @@ class Appointment {
                 throw new PDOException('La requête n\'a pas été exécutée');
             } else {
                 $all = $sth -> fetchAll();
-                if (!$all) {
-                    throw new PDOException('Rendez-vous introuvable');
-                }
             }
         } catch (PDOException $e) {
-            // return [];
-            return $e;
+            return [];   
         }
         return $all;
     }
@@ -190,9 +186,14 @@ class Appointment {
         WHERE `appointments`.`id` = :id
         ");
         $sth -> bindValue(':id', $id, PDO::PARAM_INT);
-        return $sth -> execute();
+        $sth -> execute();
+        $total = $sth -> rowCount();
+        return ($total <= 0) ? FALSE : TRUE;
     }
+    //---------------------------------------------------------------------------------------------------
 
+    // Méthode delete pour supprimer tous les rdv d'un patient-------------------------------------------------------
+    
     public static function deleteByPatient($id){
         $sth = Database::dbconnect() -> prepare(
         "DELETE FROM `appointments`

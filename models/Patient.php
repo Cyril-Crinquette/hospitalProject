@@ -154,22 +154,24 @@ class Patient
 
     // METHODE GETALL POUR AFFICHER LES PATIENTS DE LA BASE DE DONNEES----------------------------
 
-    public static function getAll(): array
-    {
+    public static function getAll(string $search = ''):array{
         $sql = '
             SELECT * 
-            FROM `patients` ;
+            FROM `patients`
+            WHERE `firstname` LIKE :search
+            OR `lastname` LIKE :search;
             ';
         try {
-            $sth = Database::dbConnect()->query($sql);
+            $sth = Database::dbConnect()->prepare($sql);
+            $sth->bindValue(':search', '%'.$search.'%', PDO::PARAM_STR);
             if (!$sth) {
                 throw new PDOException();
             }
-            $list = $sth->fetchAll();
-            return $list;
+            if ($sth->execute()) {
+                return $sth->fetchAll();
+            }
         } catch (PDOException $exception) {
-            $emptyArray = [];
-            return $emptyArray;
+            return [];
         }
     }
     // ----------------------------------------------------------------------------------------
@@ -237,10 +239,10 @@ class Patient
 
     // METHODE ALLINFOS POUR L'AFFICHAGE D'UN PATIENT AVEC TOUS SES RENDEZ-VOUS------------------------------------------
 
-    public static function allInfos($id){
+    public static function allInfos($id):array{
         try {
             $sth = Database::dbconnect() -> prepare(
-            "SELECT `patients`.`id`, `appointments`.`idPatients`,`appointments`.`id`, `lastname`, `firstname`, `birthdate`, `phone`, `mail`, `dateHour` 
+            "SELECT `patients`.`id`, `appointments`.`idPatients`,`appointments`.`id` as `appId`, `lastname`, `firstname`, `birthdate`, `phone`, `mail`, `dateHour` 
             FROM `patients` 
             JOIN `appointments` 
             ON `patients`.`id` = `appointments`.`idPatients`
@@ -256,20 +258,54 @@ class Patient
                 }
             }
         } catch (PDOException $e) {
-            return $e;
+            return [];
         }
         return $all; //retourne un objet et fetchAll un tableau !
     }
     // ----------------------------------------------------------------------------------------
 
-    // METHODE DELETEALL POUR ------------------------------------------
+    // METHODE DELETE POUR EFFACER 1 PATIENT ET SES RENDEZ-VOUS------------------------------------------
 
-    public static function delete($id){
+    public static function delete($id):bool{
         $sth = Database::dbconnect() -> prepare(
         "DELETE FROM `patients`
         WHERE `patients`.`id` = :id");
         $sth -> bindValue(':id', $id, PDO::PARAM_INT);
-        return $sth -> execute();
+        $sth -> execute();
+        $total = $sth -> rowCount();
+        return ($total <=0) ? FALSE : TRUE;
+    }
+    // ----------------------------------------------------------------------------------------
+
+    // METHODE SEARCH POUR LE CHAMP DE RECHERCHE-----------------------------------------------
+
+    /** //! search(string $search)
+     * @param string $search
+     * 
+     * @return array
+     */
+    public static function search(string $search): array{
+        try {
+            $sql = 'SELECT * FROM `hospitale2n`.`patients`
+                    WHERE `lastname` LIKE :search
+                    -- //OR `firstname` LIKE :search
+                    ORDER BY `lastname` ASC;'; // request
+
+            $sth = Database::DbConnect()->prepare($sql); // prepare
+            $sth->bindValue(':search', $search . '%', PDO::PARAM_STR); //bindValue
+
+            if (!$sth) {
+                throw new PDOException();
+            } else {
+                $sth->execute(); // execute
+                $patients = $sth->fetchAll();
+            }
+
+            return $patients;
+            
+        } catch (PDOException $e) {
+            return [];
+        }
     }
     // ----------------------------------------------------------------------------------------
 

@@ -25,8 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     //Horaire RDV
     $timeAppointment = filter_input(INPUT_POST, 'timeAppointment', FILTER_SANITIZE_SPECIAL_CHARS);
-    if (empty($dateAppointment)) {
-        $errorDate['dateAppointment'] = 'La selection d\'un horaire est obligatoire';
+    if (empty($timeAppointment)) {
+        $errorDate['timeAppointment'] = 'La selection d\'un horaire est obligatoire';
     } else {
         $timeAppointmentCheck = filter_var($timeAppointment, FILTER_VALIDATE_REGEXP,
         array("options"=>array('regexp'=>'/'.REG_EXP_TIME['time'].'/')));

@@ -33,3 +33,12 @@ RewriteRule ^info-de-rendez-vous$ /controllers/page-controller-appointment.php [
 
 # /modification-de-rendez-vous -> /controllers/page-controller-modify-appointment.php
 RewriteRule ^modification-de-rendez-vous$ /controllers/page-controller-modify-appointment.php [L]
+
+# /suppression -> /controllers/page-controller-delete.php
+RewriteRule ^suppression$ /controllers/page-controller-delete.php [L]
+
+# /suppression-du-patient -> /controllers/page-controller-delete-patient.php
+RewriteRule ^suppression-du-patient$ /controllers/page-controller-delete-patient.php [L]
+
+# /ajout-de-patient-avec-rdv -> /controllers/page-controller-add-app-pat.php
+RewriteRule ^ajout-de-patient-avec-rdv$ /controllers/page-controller-add-app-pat.php [L]

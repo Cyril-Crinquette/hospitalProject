@@ -1,4 +1,5 @@
 <?php
+echo SessionFlash::display('message');
 if (empty($error)) { ?>
     <div class="allCustomer">
     <a href="/liste-de-rendez-vous" class="btnLink">&larr; Retour vers la liste des rendez-vous</a>
@@ -25,7 +26,8 @@ if (empty($error)) { ?>
                 <p class="statusName">
                     Téléphone: <a class="linkMedia" href="tel:<?=$oneAppointment -> phone ?>"><?=$oneAppointment -> phone ?></a> 
                 </p>
-                <a class="linkProfil" href="/modification-de-rendez-vous?id=<?=$oneAppointment -> id?>">Modifier le rendez-vous</a>
+                <a class="linkProfil" href="/modification-de-rendez-vous?id=<?=$oneAppointment -> id?>">Modifier le rendez-vous</a> <br>
+                <a class="linkProfil" href="/suppression?id=<?=$oneAppointment -> id?>">Supprimer le rendez-vous</a>
             </div>
         </div>
     </div>
@@ -33,3 +35,5 @@ if (empty($error)) { ?>
 <?php
 }
 ?>
+<a href="/prise-de-rendez-vous"> <h5 class="text-center btnLink">&larr; Prendre un nouveau rendez-vous</h5></a> <br>
+<a href="/accueil"> <h5 class="text-center">Retour à l'accueil</h5></a> <br>

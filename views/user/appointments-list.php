@@ -1,7 +1,7 @@
 <?php
+echo SessionFlash::display('message');
 if (empty($error)) { ?>
     <div class="allCustomer">
-    <a href="/prise-de-rendez-vous" class="btnLink">&larr; Prendre un nouveau rendez-vous</a>
     <?php
 foreach ($appointmentList as $value) { ?>
             <div class="identyCard">
@@ -25,7 +25,7 @@ foreach ($appointmentList as $value) { ?>
                 Rendez-vous le: <br> <strong><?=$value -> dateHour?></strong> 
                 </p>
                 <a class="linkProfil" href="/info-de-rendez-vous?id=<?=$value -> appId ?>">Informations &rarr;</a>
-                <a class="linkProfil" href="/liste-de-rendez-vous?id=<?=$value -> appId ?>">Supprimer &rarr;</a>
+                <a class="linkProfil" href="/suppression?id=<?=$value -> appId ?>">Supprimer le rendez-vous &rarr;</a>
             </div>
         </div>
     </div>
@@ -36,3 +36,5 @@ foreach ($appointmentList as $value) { ?>
 <?php
 }
 ?>
+<a href="/prise-de-rendez-vous"> <h5 class="text-center btnLink">&larr; Prendre un nouveau rendez-vous</h5></a> <br>
+<a href="/accueil"> <h5 class="text-center">Retour à l'accueil</h5></a> <br>
