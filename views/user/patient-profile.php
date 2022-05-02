@@ -1,44 +1,48 @@
     <p>
         <?$error??''?>
     </p>
-    <?=SessionFlash::display('message')?>;
+    <h6 class="text-center">
+    <?=SessionFlash::display('message')?>
+    </h6>
+    <h4 class="text-center">Profil du patient</h4>
 
     <?php if (empty($error)) { ?>
-    <div class="card-deck ">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title"></h5>
-                <label for="lastname"><?=$patient->lastname;?></label>
-                <input required aria-describedby="lastnameHelp" type="text" name="lastname" id="lastname"
-                    title="Veuillez entrer un nom sans chiffres" placeholder="Entrez votre nom*"
-                    class="form-control <?= isset($error['lastname']) ? 'errorField' : '' ?>" autocomplete="family-name"
-                    value="<?= htmlentities($lastname ?? '') ?>" minlength="2" maxlength="70"
-                    pattern="<?=REG_EXP_NO_NUMBER?>">
-                <small id="lastnameHelp" class="form-text error"><?= $error['lastname'] ?? '' ?></small>
-                <h4><?=$patient->firstname;?></h4>
-                <h4><?=$patient->birthdate;?></h4>
-                <h4><?=$patient->phone;?></h4>
-                <h4><?=$patient->mail;?></h4>
+    <div class="arrGd">
+        <div class="gdparent">
+            <div class="parent1">
+                <div class="card-body">
+                    <h5><?=$patient->lastname;?></h5>
+                    <h5><?=$patient->firstname;?></h5>
+                    <h5><?=$patient->birthdate;?></h5>
+                    <h5><?=$patient->phone;?></h5>
+                    <h5><?=$patient->mail;?></h5>
+                    <h5><?=$patient->id;?></h5>
+                </div>
             </div>
-            <div class="card-footer">
-                <small class="text-muted"><?=$patient->id;?></small>
+            <div class="parent2">
+                <img src="/public/assets/img/iconfinder_12-Mask_5929232.png" alt="avatar représentant un patient de l'hôpital">
             </div>
         </div>
-        <p class="statusName">
-            Rendez-vous du patient: <br>
+        <h4 class=" rdv text-center">Rendez-vous du patient</h4>
+        <div class="rdvParent">
             <?php
                 if (!empty($allInfo)) {
                     foreach ($allInfo as $value) {
-                        echo '<p>'.$value->dateHour.'</p>'
-                        ?> <br>
-                        <a class="linkProfil" href="/suppression?id=<?=$value->appId?>">Supprimer le rendez-vous &rarr;</a> <br><br><br><br>
-                    <?php }
+                        echo '<p class="text-center"> Fixé pour le '.$value->dateHour.'</p>'
+                        ?>
+            <a class="linkProfil" href="/suppression?id=<?=$value->appId?>">
+                <p class="text-center">Supprimer le rendez-vous </p>
+            </a>
+            <br>
+            <?php }
                 } else {
-                    echo '<p> Aucun rendez-vous n\'est pris pour ce patient</p>';
+                    echo '<p class="text-center"> Aucun rendez-vous n\'est pris pour ce patient</p>';
                 }
             }
             ?>
-        </p>
+        </div>
+        <a href="/modification?id=<?=$patient->id;?>"><h6>Modifier les informations du patient</h6></a> <br>
     </div>
-    <a href="/modification?id=<?=$patient->id;?>"><button>Modifier les informations du patient</button></a> <br>
-    <a href="/liste-de-patients"> <h5 class="text-center">Retour à la liste des patients</h5></a> <br>
+    <a href="/liste-de-patients">
+        <h5 class="text-center">Retour à la liste des patients</h5>
+    </a> <br>

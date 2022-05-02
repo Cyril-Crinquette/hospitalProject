@@ -4,6 +4,8 @@ require_once(dirname(__FILE__).'/../models/Patient.php');
 require_once(dirname(__FILE__).'/../models/Appointment.php');
 require_once(dirname(__FILE__).'/../helpers/sessionFlash.php');
 
+$style="style-patients-list.css";
+
 // $patientTable = Patient::getAll();
 // if (!empty($_GET)) {
 //     $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
@@ -16,9 +18,9 @@ require_once(dirname(__FILE__).'/../helpers/sessionFlash.php');
 //     }
 // }
 
-if ($patientList instanceof PDOException) {
-    $error = $patientList -> getMessage();
-}
+// if ($patientList instanceof PDOException) {
+//     $error = $patientList -> getMessage();
+// }
 
 // $patientTable = Patient::getAll();
 

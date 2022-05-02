@@ -12,7 +12,7 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="/public/assets/css/style.css">
     <!-- Chargement de la feuille de style commune aux différentes pages -->
-    <link rel="stylesheet" href="/public/assets/css/css_home/style.css">
+    <link rel="stylesheet" href="/public/assets/css/<?=$style?>">
     <!-- Chargement de la feuille de style correspondant à la page d'accueil -->
 </head>
 <body>
@@ -30,16 +30,16 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="/accueil">Accueil</a>
+                            <a class="nav-link" href="/inscription">Inscription</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/accueil">Services</a>
+                            <a class="nav-link" href="/liste-de-patients">Patients</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/accueil">A propos</a>
+                            <a class="nav-link" href="/prise-de-rendez-vous">Prise de rdv</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/accueil">Contact</a>
+                            <a class="nav-link" href="/liste-de-rendez-vous">Rendez-vous</a>
                         </li>
                     </ul>
                 </div>

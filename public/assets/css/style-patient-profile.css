@@ -1,0 +1,118 @@
+/* ---------------------------------------RESPONSIVE MOBILE---------------------------------- */
+
+body{
+    background-color: rgb(248,249,250);
+    height: 100%;
+}
+
+h4{
+    margin-top: 2%;
+}
+
+.arrGd{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gdparent{
+    display: flex;
+    justify-content: space-around;
+    height: 100%;
+    border: 0.2rem solid;
+    width: 90%;
+    margin-top:1em;
+    margin-bottom: 1em;
+}
+
+.rdvParent{
+    border: 0.2rem solid;
+    width: 90%;
+    margin-top:1em;
+    margin-bottom: 3em;
+    padding: 1em;
+}
+
+.parent1{
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+}
+
+.parent2{
+    display: none;
+}
+
+img{
+    display: none;
+}
+
+h5{
+    margin:0.8em;
+}
+
+h6{
+    margin-top: 2%;
+}
+
+.rdv{
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+footer{
+    margin-top: 2%;
+}
+
+
+/* -----------------------------------RESPONSIVE PC--------------------------------------------- */
+
+@media screen and (min-width: 992px) {
+
+    h4{
+        margin: 2%;
+    }
+    
+    /* table{
+        width:40%;
+        border: 0.3rem black solid;
+        margin-top: 1%;
+        padding-bottom: 1.5%;
+    } */
+
+    img{
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+
+    footer{
+        margin-top:2%;
+        display: flex;
+        justify-content: flex-end;
+        margin-right: 2%;
+    }
+
+    .gdparent{
+        display: flex;
+        justify-content: space-around;
+        height: 100%;
+        border: 0.2rem solid;
+        width: 55%;
+    }
+
+    .rdvParent{
+        width: 55%;
+    }
+
+    .parent1, .parent2{
+        display: flex;
+        flex-direction: column;
+        align-items: space-between;
+        text-align: center;
+    }
+    
+}

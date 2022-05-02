@@ -5,6 +5,7 @@ require_once(dirname(__FILE__).'/../models/Patient.php');
 require_once(dirname(__FILE__).'/../models/Appointment.php');
 require_once(dirname(__FILE__).'/../helpers/sessionFlash.php');
 
+$style="style-appointments-list.css";
 
 $appointmentList = Appointment::getAll();
 

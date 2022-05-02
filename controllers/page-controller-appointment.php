@@ -5,7 +5,7 @@ require_once(dirname(__FILE__).'/../models/Patient.php');
 require_once(dirname(__FILE__).'/../models/Appointment.php');
 require_once(dirname(__FILE__).'/../helpers/sessionFlash.php');
 
-
+$style="style-appointment.css";
 
 if (!empty($_GET)) {
     $id = trim(filter_input(INPUT_GET,'id',FILTER_SANITIZE_SPECIAL_CHARS));

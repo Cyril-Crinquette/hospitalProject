@@ -3,6 +3,8 @@
 require_once(dirname(__FILE__).'/../models/Patient.php');
 require_once(dirname(__FILE__).'/../helpers/sessionFlash.php');
 
+$style="style-patient-profile.css";
+
 
     $id= intval(filter_input(INPUT_GET,'id',FILTER_SANITIZE_NUMBER_INT));
     $allInfo = Patient::allInfos($id);

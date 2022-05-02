@@ -7,6 +7,7 @@ require_once(dirname(__FILE__).'/../models/Patient.php');
 require_once(dirname(__FILE__).'/../models/Appointment.php');
 require_once(dirname(__FILE__).'/../utils/regex.php');
 
+$style="style-add-app-pat.css";
 
 // Traitement des données du formulaire
 

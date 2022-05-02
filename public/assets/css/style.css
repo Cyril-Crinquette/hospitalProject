@@ -2,7 +2,7 @@
 header {
     position: relative;
     background-color: black;
-    height: 75vh;
+    height: 50vh;
     min-height: 25rem;
     width: 100%;
     overflow: hidden;
@@ -70,17 +70,25 @@ a {
 }
 
 a:hover {
-    color: white;
+    color: rgb(90, 232, 184);
     transform: scale(1.05);
 }
 
-
-
+footer{
+    margin-top: 2%;
+}
 /* -----------------------------------RESPONSIVE PC--------------------------------------------- */
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 992px) {
     body {
-        background-color: aquamarine;
+        background-color: rgb(90, 232, 184);
+    }
+
+    footer{
+        margin-top:2%;
+        display: flex;
+        justify-content: flex-end;
+        margin-right: 2%;
     }
 
 }

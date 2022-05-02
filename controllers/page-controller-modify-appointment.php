@@ -7,6 +7,9 @@ require_once(dirname(__FILE__).'/../models/Appointment.php');
 
 $dayD = date('Y-m-d');
 
+$style="style-modify-appointment.css";
+
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     //DATE DE RDV

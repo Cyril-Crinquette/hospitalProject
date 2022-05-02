@@ -7,6 +7,9 @@ require_once(dirname(__FILE__).'/../models/Patient.php');
 require_once(dirname(__FILE__).'/../utils/regex.php');
 
 
+$style="style-modify.css";
+
+
 // Traitement des données du formulaire
 
 // Initialisation du tableau d'erreurs

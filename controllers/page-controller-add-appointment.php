@@ -6,6 +6,9 @@ require_once(dirname(__FILE__).'/../models/Patient.php');
 require_once(dirname(__FILE__).'/../models/Appointment.php');
 
 
+$style="style-add-appointment.css";
+
+
 $errorDate=[];
 $dayD = date('Y-m-d');
 
